@@ -219,6 +219,23 @@ com.apple.reminders.help
 com.apple.reminders.sharingextension
 ```
 
+## Finding Pane IDs and Anchors
+
+You can use the following `AppleScript` to find the pane and its associated deeplink anchors: Paste the code into `Script Editor.app`, open `System Preferences` and navigate to the pane you want to identify, then run the script. It will output the name of the current pane and any associated anchors.
+
+```applescript
+tell application "System Settings"
+	set AppleScript's text item delimiters to ", "
+	set CurrentPane to the id of the current pane
+	get the name of every anchor of pane id CurrentPane
+	set CurrentAnchors to get the name of every anchor of pane id CurrentPane
+	set the clipboard to CurrentPane
+	display dialog "Current Pane ID: " & CurrentPane & return & return & "Pane ID has been copied to the clipboard." & return & return & "Current Anchors: " & return & (CurrentAnchors as string)
+end tell
+```
+
+![](https://github.com/user-attachments/assets/ee8ed076-4fa7-4203-9c4e-c2a49d07eaf0)
+
 ## License
 
 This project is licensed under the [MIT License](./LICENSE).
