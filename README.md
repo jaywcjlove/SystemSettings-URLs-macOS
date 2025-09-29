@@ -197,7 +197,7 @@ com.apple.CalendarDiagnostics.CalendarDiagnosticExtensionUnredacted
 com.apple.calendar.cal
 ```
 
-## Calendar
+## Reminders
 
 ```shell
 for pref in $( \
