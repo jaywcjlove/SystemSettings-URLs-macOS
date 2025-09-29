@@ -57,6 +57,8 @@ $ open x-apple.systempreferences:com.apple.Passwords
 
 In System Settings, besides the sidebar items, there are some interfaces that also support URL Schemes, but they are not in that plist file. To get these items, you can use the `strings` command to extract strings from the System Settings app that may belong to deeper submenus.
 
+## System Settings
+
 ```shell
 for pref in $(strings "/System/Applications/System Settings.app/Contents/MacOS/System Settings" | awk '/^com.apple./ {print $1 }'); do echo "$pref"; done
 ```
@@ -131,6 +133,81 @@ com.apple.SystemSettings.CoreAnalytics.searchAbandonment
 com.apple.SystemSettings.CoreAnalytics.struggle
 com.apple.SystemSettings.CoreAnalytics.navigation
 com.apple.SystemSettings.CoreAnalytics.windowResize
+```
+
+## Calendar
+
+```shell
+for pref in $(strings "/System/Applications/Calendar.app/Contents/MacOS/Calendar" | awk '/^com.apple./ {print $1 }'); do echo "$pref"; done
+```
+
+Here is the output of the command above:
+
+```shell
+com.apple.calendar
+com.apple.CalendarFileHandler
+com.apple.Calendar
+com.apple.iCal
+com.apple.reminders
+com.apple.calendar.viewAtLaunch
+com.apple.calendar.viewTransitions
+com.apple.calendar.TimeZoneChanged
+com.apple.calendar.LocaleChanged
+com.apple.calendar.mergeCalendarQueue
+com.apple.calendar.continuity.event_selection
+com.apple.calendar.continuity.date_selection
+com.apple.calendar.ics
+com.apple.ical.ics
+com.apple.ical.readonly
+com.apple.ical.group
+com.apple.ical.invitation
+com.apple.ical.nopermission
+com.apple.ical.birthdays
+com.apple.ical.itip
+com.apple.ical.caldav.readonly.private
+com.apple.ical.reminders
+com.apple.ical.itip.receive.request
+com.apple.ical.itip.receive.reply
+com.apple.ical.itip.send
+com.apple.ical.mailcalendar
+com.apple.ical.noevents
+com.apple.AddressBook
+com.apple.Reminders
+com.apple.calendar.restoreQueue
+com.apple.mail
+com.apple.iCal.automaticInvitationChange
+com.apple.calendar.pasteboard.ekcalendar
+com.apple.calendar.pasteboard.eksource
+com.apple.iCal.pasteboard.dragOriginDate
+com.apple.calendar.weatherCache
+com.apple.Siri
+com.apple.calendar.navigation.mode
+com.apple.calendar.monthViewEvents
+com.apple.%@
+com.apple.suggestions
+com.apple.suggestions.settingsChanged
+com.apple.eventkit.CalendarDiagnosticExtension
+com.apple.CalendarDiagnostics.CalendarDiagnosticExtensionUnredacted
+com.apple.calendar.cal
+```
+
+## Calendar
+
+```shell
+for pref in $(strings "/System/Applications/Reminders.app/Contents/MacOS/Reminders" | awk '/^com.apple./ {print $1 }'); do echo "$pref"; done
+```
+
+Here is the output of the command above:
+
+```shell
+com.apple.calendar.LocaleChanged
+com.apple.reminders.deviceListDevicesMutex
+com.apple.reminders
+com.apple.remindd.userAction
+com.apple.reminders.createCSL
+com.apple.reminders.boardView.column
+com.apple.reminders.help
+com.apple.reminders.sharingextension
 ```
 
 ## License
