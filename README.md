@@ -32,7 +32,6 @@
 </div>
 <hr>
 
-
 SystemSettings for MacOS
 ===
 
@@ -49,3 +48,93 @@ NSWorkspace.shared.open(
     URL(string: "x-apple.systempreferences:com.apple.Wallpaper-Settings.extension")!
 )
 ```
+
+You can also open it using the open command:
+
+```shell
+$ open x-apple.systempreferences:com.apple.Passwords
+```
+
+In System Settings, besides the sidebar items, there are some interfaces that also support URL Schemes, but they are not in that plist file. To get these items, you can use the `strings` command to extract strings from the System Settings app that may belong to deeper submenus.
+
+```shell
+for pref in $(strings "/System/Applications/System Settings.app/Contents/MacOS/System Settings" | awk '/^com.apple./ {print $1 }'); do echo "$pref"; done
+```
+
+Here is the output of the command above:
+
+```
+com.apple.systempreferences.debug
+com.apple.ClassroomSettings
+com.apple.CD-DVD-Settings.extension
+com.apple.preferences.ClassKitPreferencePane
+com.apple.Passwords
+com.apple.LoginItems-Settings.extension
+com.apple.Passwords-Settings.extension
+com.apple.Transfer-Reset-Settings.extension
+com.apple.Date-Time-Settings.extension
+com.apple.SystemProfiler.AboutExtension
+com.apple.Startup-Disk-Settings.extension
+com.apple.Software-Update-Settings.extension
+com.apple.Localization-Settings.extension
+com.apple.Coverage-Settings.extension
+com.apple.Sharing-Settings.extension
+com.apple.AirDrop-Handoff-Settings.extension
+com.apple.settings.Storage
+com.apple.Time-Machine-Settings.extension
+com.apple.ExtensionsPreferences
+com.apple.Profiles-Settings.extension
+com.apple.systempreferences.GeneralSettings
+com.apple.settings.PrivacySecurity.extension
+com.apple.Battery-Settings.extension
+com.apple.Touch-ID-Settings.extension
+com.apple.systempreferences.AppleIDSettings
+com.apple.FollowUpSettings.FollowUpSettingsExtension
+com.apple.Family-Settings.extension
+com.apple.Displays-Settings.extension
+com.apple.BluetoothSettings
+com.apple.Desktop-Settings.extension
+com.apple.Accessibility-Settings.extension
+com.apple.preference.desktopscreeneffect
+com.apple.Wallpaper-Settings.extension
+com.apple.preference.network
+com.apple.Network-Settings.extension
+com.apple.preferences.configurationprofiles
+com.apple.package
+com.apple.bundle
+com.apple.systempreference.prefpane
+com.apple.Classroom-Settings.extension
+com.apple.ScreenSaver-Settings.extension
+com.apple.systemsettings.usercache
+com.apple.systempreferences.cache
+com.apple.HeadphoneSettings
+com.apple.systempreference.toggleTouchBarControlStripCustomizationPalette
+com.apple.FollowUpSettings
+com.apple.Touch-ID-Settings
+com.apple.systempreferences
+com.apple.Family-Settings.extension*Family
+com.apple.Network-Link-Conditioner
+com.apple.Appearance-Settings.extension
+com.apple.preference
+com.apple.systemsettings.legacyPane
+com.apple.systemsettings.extensions
+com.apple.Users-Groups-Settings.extension
+com.apple.systemsettings.extensions.didchange
+com.apple.settings
+com_apple_system_prefs_keywords
+com_apple_system_prefs_keywords
+com.apple.systempreferences.InstallHelper
+com.apple.systempreferences.read-only
+com.apple.systempreferences.refreshdocktile
+com.apple.systemsettings.menucache
+com.apple.SystemSettings.CoreAnalytics.searchAbandonment
+com.apple.SystemSettings.CoreAnalytics.struggle
+com.apple.SystemSettings.CoreAnalytics.navigation
+com.apple.SystemSettings.CoreAnalytics.windowResize
+```
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+Some content in this project is based on the article [How to Access Every Section of macOS Ventura System Settings](https://www.macosadventures.com/2022/12/05/how-to-open-every-section-of-macos-ventura-system-settings/) by Brian Van Peski.
