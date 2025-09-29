@@ -45,5 +45,7 @@ In macOS, the URL Schemes for commonly used System Settings panes are stored in 
 In Swift, you can open the corresponding System Settings pane directly by simply adding the `x-apple.systempreferences:` prefix.
 
 ```swift
-NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.Wallpaper-Settings.extension")!)
+NSWorkspace.shared.open(
+    URL(string: "x-apple.systempreferences:com.apple.Wallpaper-Settings.extension")!
+)
 ```
