@@ -53,6 +53,7 @@ You can also open it using the open command:
 
 ```shell
 $ open x-apple.systempreferences:com.apple.Passwords
+$ open "x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_Advertising"
 ```
 
 In System Settings, besides the sidebar items, there are some interfaces that also support URL Schemes, but they are not in that plist file. To get these items, you can use the `strings` command to extract strings from the System Settings app that may belong to deeper submenus.
@@ -234,10 +235,79 @@ tell application "System Settings"
 end tell
 ```
 
-![](https://github.com/user-attachments/assets/ee8ed076-4fa7-4203-9c4e-c2a49d07eaf0)
+![](./imgs/SystemSettings.png)
+
+![](./imgs/ScriptEditor.png)
+
+This script does not capture all the anchors that can be deep-linked to. If some anchors are missing, you may need to dig into the preference pane itself to see if there are any code snippets referencing other available options that we cannot identify as anchors. For example, when the script is run against the "Security & Privacy" pane, it doesn't return any options for the "Input Monitoring" section. However, you can open `/System/Library/PreferencePanes/Security.prefPane/Contents/Resources/PrivacyTCCServices.plist` and see that the key value I might be looking for is likely `ListenEvent`.
+
+![](./imgs/PrivacyTCCServices.png)
+
+
+## Get the app's bundle ID
+
+```applescript
+tell application "Calendar"
+	set bundleID to uid of application "Calendar"
+end tell
+
+-- > "com.apple.iCal"
+```
+
+## 获取指定应用的 URL Schemes
+
+```applescript
+-- 应用路径
+set appPath to "/System/Applications/Calendar.app"
+
+-- 调用 PlistBuddy 获取 CFBundleURLSchemes
+set urlSchemes to do shell script "/usr/libexec/PlistBuddy -c 'Print :CFBundleURLTypes' '" & appPath & "/Contents/Info.plist'"
+
+-- 输出结果
+return urlSchemes
+```
+
+## Get URL Schemes for a Specific App
+
+```applescript
+-- Application path
+set appPath to "/System/Applications/Calendar.app"
+
+-- Use PlistBuddy to get CFBundleURLSchemes
+set urlSchemes to do shell script "/usr/libexec/PlistBuddy -c 'Print :CFBundleURLTypes' '" & appPath & "/Contents/Info.plist'"
+
+-- Output the result
+return urlSchemes
+```
+
+Based on the output, Calendar supports the URL Schemes `ical://` and `webcal://`.
+
+```
+"Array {
+    Dict {
+        CFBundleURLName = Remote Calendar URL
+        CFBundleURLSchemes = Array {
+            webcal
+        }
+    }
+    Dict {
+        CFBundleURLSchemes = Array {
+            ical
+        }
+        CFBundleURLIconFile = ical
+        CFBundleURLName = iCal URL
+    }
+}"
+```
 
 ## License
 
 This project is licensed under the [MIT License](./LICENSE).
 
 Some content in this project is based on the article [How to Access Every Section of macOS Ventura System Settings](https://www.macosadventures.com/2022/12/05/how-to-open-every-section-of-macos-ventura-system-settings/) by Brian Van Peski.
+
+- https://app-talk.com/
+- https://github.com/FifiTheBulldog/ios-settings-urls
+- https://github.com/wujianguo/iOSAppsInfo
+- https://github.com/bhagyas/app-urls
+- https://gist.github.com/rmcdongit/f66ff91e0dad78d4d6346a75ded4b751
