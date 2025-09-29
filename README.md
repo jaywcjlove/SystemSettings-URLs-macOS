@@ -60,7 +60,10 @@ In System Settings, besides the sidebar items, there are some interfaces that al
 ## System Settings
 
 ```shell
-for pref in $(strings "/System/Applications/System Settings.app/Contents/MacOS/System Settings" | awk '/^com.apple./ {print $1 }'); do echo "$pref"; done
+for pref in $( \
+  strings "/System/Applications/System Settings.app/Contents/MacOS/System Settings" | \
+  awk '/^com.apple./ {print $1 }' \
+); do echo "$pref"; done
 ```
 
 Here is the output of the command above:
@@ -138,7 +141,10 @@ com.apple.SystemSettings.CoreAnalytics.windowResize
 ## Calendar
 
 ```shell
-for pref in $(strings "/System/Applications/Calendar.app/Contents/MacOS/Calendar" | awk '/^com.apple./ {print $1 }'); do echo "$pref"; done
+for pref in $( \
+  strings "/System/Applications/Calendar.app/Contents/MacOS/Calendar" | \
+  awk '/^com.apple./ {print $1 }' \
+); do echo "$pref"; done
 ```
 
 Here is the output of the command above:
@@ -194,7 +200,10 @@ com.apple.calendar.cal
 ## Calendar
 
 ```shell
-for pref in $(strings "/System/Applications/Reminders.app/Contents/MacOS/Reminders" | awk '/^com.apple./ {print $1 }'); do echo "$pref"; done
+for pref in $( \
+  strings "/System/Applications/Reminders.app/Contents/MacOS/Reminders" | \
+  awk '/^com.apple./ {print $1 }' \
+); do echo "$pref"; done
 ```
 
 Here is the output of the command above:
