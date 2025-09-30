@@ -254,19 +254,6 @@ end tell
 -- > "com.apple.iCal"
 ```
 
-## 获取指定应用的 URL Schemes
-
-```applescript
--- 应用路径
-set appPath to "/System/Applications/Calendar.app"
-
--- 调用 PlistBuddy 获取 CFBundleURLSchemes
-set urlSchemes to do shell script "/usr/libexec/PlistBuddy -c 'Print :CFBundleURLTypes' '" & appPath & "/Contents/Info.plist'"
-
--- 输出结果
-return urlSchemes
-```
-
 ## Get URL Schemes for a Specific App
 
 ```applescript
