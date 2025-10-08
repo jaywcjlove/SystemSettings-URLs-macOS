@@ -237,6 +237,10 @@ end tell
 
 ![](./imgs/SystemSettings.png)
 
+```shell
+$ open "x-apple.systempreferences:com.apple.Wallpaper-Settings.extension?ScreenSaver"
+```
+
 ![](./imgs/ScriptEditor.png)
 
 This script does not capture all the anchors that can be deep-linked to. If some anchors are missing, you may need to dig into the preference pane itself to see if there are any code snippets referencing other available options that we cannot identify as anchors. For example, when the script is run against the "Security & Privacy" pane, it doesn't return any options for the "Input Monitoring" section. However, you can open `/System/Library/PreferencePanes/Security.prefPane/Contents/Resources/PrivacyTCCServices.plist` and see that the key value I might be looking for is likely `ListenEvent`.
