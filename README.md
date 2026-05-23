@@ -37,6 +37,10 @@
 </div>
 <hr />
 
+[System Settings](#system-settings) • [Calendar](#calendar) • [Reminders](#reminders) • [Finding Pane IDs and Anchors](#finding-pane-ids-and-anchors)
+
+<hr />
+
 SystemSettings for MacOS
 ===
 
